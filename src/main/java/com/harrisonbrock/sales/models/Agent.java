@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,7 @@ public class Agent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "agentcode",nullable = false)
+    @Column(nullable = false)
     private long agentcode;
 
     private String agentname;
@@ -26,9 +27,9 @@ public class Agent {
 
     private String country;
 
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "agent")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
     @JsonIgnore
-    private Set<Customer> customers;
+    private Set<Customer> customers = new HashSet<>();
 
     public Agent() {
     }

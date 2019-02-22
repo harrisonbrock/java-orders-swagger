@@ -3,12 +3,10 @@ package com.harrisonbrock.sales.controllers;
 import com.harrisonbrock.sales.models.Customer;
 import com.harrisonbrock.sales.repositories.CustomerRepository;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,5 +26,22 @@ public class CustomerController {
     @GetMapping("/custcode/{id}")
     public Customer getCustomerById(@PathVariable long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    @PostMapping()
+    public Customer insertOneCustomer(@RequestBody Customer newCustomer) {
+        return repository.save(newCustomer);
+    }
+
+    @PutMapping("/custcode/{id}")
+    public Customer updateCustomer(@RequestBody Customer updatedCustomer, @PathVariable long id) {
+        Optional<Customer> customer = repository.findById(id);
+
+        if (customer.isPresent()) {
+            updatedCustomer.setCustcode(id);
+            repository.save(updatedCustomer);
+            return updatedCustomer;
+        }
+        return null;
     }
 }

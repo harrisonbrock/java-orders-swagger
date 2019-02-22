@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 
 @Entity
 @Data
@@ -28,8 +29,8 @@ public class Customer {
     private double outstandingamt;
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "agentcode", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agentcode")
     @JsonIgnore
     private Agent agent;
 
