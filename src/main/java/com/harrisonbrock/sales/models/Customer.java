@@ -29,7 +29,7 @@ public class Customer {
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "agentCode", nullable = false)
+    @JoinColumn(name = "agentcode", nullable = false)
     @JsonIgnore
     private Agent agent;
 

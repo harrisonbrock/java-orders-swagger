@@ -1,5 +1,6 @@
 package com.harrisonbrock.sales.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,9 +13,8 @@ public class Agent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column( name = "agentcode",nullable = false)
     private long agentcode;
-
 
     private String agentname;
 
@@ -27,6 +27,7 @@ public class Agent {
     private String country;
 
     @OneToMany(cascade = CascadeType.DETACH, mappedBy = "agent")
+    @JsonIgnore
     private Set<Customer> customers;
 
     public Agent() {
