@@ -12,8 +12,8 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private long custCode;
+    @Column(name = "custcode",nullable = false)
+    private long custcode;
 
     @Column(nullable = false)
     private String custname;
