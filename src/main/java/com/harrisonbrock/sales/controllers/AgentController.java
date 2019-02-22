@@ -3,10 +3,7 @@ package com.harrisonbrock.sales.controllers;
 import com.harrisonbrock.sales.models.Agent;
 import com.harrisonbrock.sales.repositories.AgentRepository;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +20,8 @@ public class AgentController {
     }
 
     @GetMapping()
-    public List<Agent> getAllAgents(){
-        return  repository.findAll();
+    public List<Agent> getAllAgents() {
+        return repository.findAll();
     }
 
     @GetMapping("/agentcode/{id}")
@@ -33,11 +30,14 @@ public class AgentController {
 
         if (agents.isPresent()) {
             return agents.stream().collect(Collectors.toList());
-        }
-        else {
+        } else {
             return agents.stream().collect(Collectors.toList());
         }
+    }
 
+    @PostMapping()
+    public Agent insertOneAgent(@RequestBody Agent newAgent) {
+        return repository.save(newAgent);
     }
 
 }
