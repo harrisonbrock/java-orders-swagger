@@ -40,4 +40,18 @@ public class AgentController {
         return repository.save(newAgent);
     }
 
+    @PutMapping("/agentcode/{id}")
+    public Agent updateAgent(@RequestBody Agent newAgent, @PathVariable long id) {
+        Optional<Agent> updatingAgent = repository.findById(id);
+
+        if (updatingAgent.isPresent()) {
+            newAgent.setAgentcode(id);
+            repository.save(newAgent);
+            return newAgent;
+        }
+        else {
+            return null;
+        }
+    }
+
 }
