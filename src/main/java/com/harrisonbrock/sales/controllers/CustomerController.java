@@ -4,6 +4,7 @@ import com.harrisonbrock.sales.models.Customer;
 import com.harrisonbrock.sales.repositories.CustomerRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class CustomerController {
     @GetMapping()
     public List<Customer> getAllCustomers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/custcode/{id}")
+    public Customer getCustomerById(@PathVariable long id) {
+        return repository.findById(id).orElse(null);
     }
 }
